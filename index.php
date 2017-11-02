@@ -1,10 +1,12 @@
-<pre>
 <?php
+$start = microtime();
 
-spl_autoload_register(function ($class_name) {
-    include 'classes/' . $class_name . '.php';
-});
+require 'vendor/autoload.php';
 
+
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
 
 
@@ -36,3 +38,8 @@ $petro_automobilis->go();
 // $petro_automobilis->go();
 // $petro_automobilis->stop();
 // $petro_automobilis->getWeight();
+
+echo "<div style='position:absolute; right:0; top:0; background-color: red; color:white'>";
+echo round((microtime() - $start)*1000)."ms";
+echo " & ". round(memory_get_peak_usage()/(1024*1024), 2)." MB";
+echo "</div>";
